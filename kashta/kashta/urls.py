@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('website.urls')),  # Include website URLs
     path('articles/', include('articles.urls')),  # Include articles URLs
+    path('landingpage/', include('landing.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.index_title = "kastha knowledge base"
