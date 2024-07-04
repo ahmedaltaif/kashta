@@ -1,20 +1,13 @@
 from django.contrib import admin
 from .models import Article, Topic
-from ckeditor.widgets import CKEditorWidget
-from django import forms
-from django.utils.html import format_html
-
-class ArticleAdminForm(forms.ModelForm):
-    content = forms.CharField(widget=CKEditorWidget())
-
-    class Meta:
-        model = Article
-        fields = '__all__'
 
 class ArticleAdmin(admin.ModelAdmin):
-    form = ArticleAdminForm
-    list_display = ['title', 'topic', 'published_date', 'view_count']
-    search_fields = ['title', 'content']
+    list_display = ('title', 'published_date', 'view_count', 'summary')
+    search_fields = ('title', 'content')
+
+class TopicAdmin(admin.ModelAdmin):
+    list_display = ('title', 'description')
+    search_fields = ('title', 'description')
 
 admin.site.register(Article, ArticleAdmin)
-admin.site.register(Topic)
+admin.site.register(Topic, TopicAdmin)

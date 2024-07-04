@@ -1,36 +1,35 @@
 {% extends 'website/base.html' %}
 
 {% block content %}
-<div id="article-content">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Main Content Area</h1>
-                <p>Here goes the main content of the website.</p>
-            </div>
-            <div class="col-md-12">
-                <!-- Main Box 1: Topics -->
-                <div class="main-box">
-                    <h2>Topics</h2>
-                    <ul>
-                        {% for topic in topics %}
-                            <li><a href="{% url 'article_list' topic.pk %}">{{ topic.name }}</a></li>
-                        {% endfor %}
-                    </ul>
+<div class="container">
+    <h2>Latest Topics</h2>
+    <div class="row">
+        {% for topic in latest_topics %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ topic.title }}</h5>
+                        <p class="card-text">{{ topic.description }}</p>
+                        <a href="{% url 'topic_detail' topic.id %}" class="btn btn-primary">Read More</a>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <!-- Main Box 2: Most Viewed Articles -->
-                <div class="main-box">
-                    <h2>Most Viewed Articles</h2>
-                    <ul>
-                        {% for article in most_viewed_articles %}
-                            <li><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></li>
-                        {% endfor %}
-                    </ul>
+        {% endfor %}
+    </div>
+
+    <h2>Most Viewed Articles</h2>
+    <div class="row">
+        {% for article in most_viewed_articles %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <p class="card-text">{{ article.summary }}</p>
+                        <a href="{% url 'article_detail' article.id %}" class="btn btn-primary">Read More</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
