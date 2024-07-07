@@ -14,13 +14,19 @@ def home(request):
 
 def article_detail(request, pk):
     article = get_object_or_404(Article, pk=pk)
-    return render(request, 'articles/article_detail.html', {'article': article})
+    topics = Topic.objects.all()
+    return render(request, 'articles/article_detail.html', {
+        'article': article,
+        'topics': topics
+    })
 
 def article_list(request, pk):
     topic = get_object_or_404(Topic, pk=pk)
+    topics = Topic.objects.all()
     return render(request, 'articles/article_list.html', {
         'topic': topic,
-        'articles': topic.article_set.all()
+        'articles': topic.articles.all(),  # Use 'articles' here
+        'topics': topics
     })
 
 def search(request):
@@ -29,4 +35,9 @@ def search(request):
         articles = Article.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
     else:
         articles = []
-    return render(request, 'website/search_results.html', {'results': articles, 'query': query})
+    topics = Topic.objects.all()
+    return render(request, 'website/search_results.html', {
+        'results': articles,
+        'query': query,
+        'topics': topics
+    })
