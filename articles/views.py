@@ -3,9 +3,14 @@ from django.db.models import Q
 from .models import Topic, Article
 
 def home(request):
-    latest_topics = Topic.objects.all()[:6]  # Show latest 6 topics
-    most_viewed_articles = Article.objects.order_by('-views')[:6]  # Show top 6 viewed articles
-    return render(request, 'website/home.html', {'latest_topics': latest_topics, 'most_viewed_articles': most_viewed_articles})
+    latest_topics = Topic.objects.all()[:6]
+    most_viewed_articles = Article.objects.order_by('-view_count')[:6]
+    topics = Topic.objects.all()
+    return render(request, 'website/home.html', {
+        'latest_topics': latest_topics,
+        'most_viewed_articles': most_viewed_articles,
+        'topics': topics
+    })
 
 def article_detail(request, pk):
     article = get_object_or_404(Article, pk=pk)
@@ -15,7 +20,7 @@ def article_list(request, pk):
     topic = get_object_or_404(Topic, pk=pk)
     return render(request, 'articles/article_list.html', {
         'topic': topic,
-        'articles': topic.articles.all()
+        'articles': topic.article_set.all()
     })
 
 def search(request):

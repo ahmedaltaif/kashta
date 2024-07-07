@@ -7,7 +7,7 @@
             </a>
             <div class="collapse" id="collapse{{ topic.id }}">
                 <ul class="nav flex-column ml-3">
-                    {% for article in topic.articles.all %}
+                    {% for article in topic.article_set.all %}
                     <li class="nav-item">
                         <a class="nav-link article-link" href="{% url 'article_detail' article.pk %}">{{ article.title }}</a>
                     </li>

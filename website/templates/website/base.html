@@ -39,12 +39,12 @@
 
             $('.article-link').on('click', function(event) {
                 event.preventDefault();
-                const url = $(this).data('url');
+                const url = $(this).attr('href');
                 $.get(url, function(data) {
                     $('#article-content').html('<h2>' + data.title + '</h2><p>' + data.content + '</p>');
                 });
             });
         });
-    </script>      
+    </script>
 </body>
 </html>
