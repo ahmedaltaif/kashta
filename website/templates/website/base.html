@@ -32,19 +32,27 @@
             $('.sidebar-toggle').on('click', function() {
                 $('#sidebar, #content').toggleClass('collapsed');
             });
-
+    
             $('.nav-link[data-toggle="collapse"]').on('click', function() {
                 $(this).toggleClass('collapsed');
             });
-
+    
             $('.article-link').on('click', function(event) {
                 event.preventDefault();
                 const url = $(this).attr('href');
-                $.get(url, function(data) {
-                    $('#article-content').html('<h2>' + data.title + '</h2><p>' + data.content + '</p>');
+                console.log('Article link clicked:', url);  // Add this line for debugging
+                $.ajax({
+                    url: url,
+                    success: function(data) {
+                        $('#content').html(data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX Error:', status, error);
+                    }
                 });
             });
         });
     </script>
+        
 </body>
 </html>

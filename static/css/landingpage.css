@@ -1,0 +1,27 @@
+/* Example CSS styles */
+
+/* Adjust navbar padding */
+.navbar {
+    padding: 1rem;
+}
+
+/* Center align content in columns */
+.col-lg-6 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* Adjust form input width */
+.form-control {
+    width: 80%;
+}
+
+/* Footer styles */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 1rem 0;
+}

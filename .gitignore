@@ -6,4 +6,3 @@ uploads/*
 staticfiles/*
 env/*
 .env
-db.sqlite3

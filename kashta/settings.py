@@ -60,7 +60,11 @@ ROOT_URLCONF = 'kashta.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'website' / 'templates'],
+        'DIRS': [
+            BASE_DIR / 'website' / 'templates',
+            BASE_DIR / 'landing' / 'templates',
+            # Add other directories as needed
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

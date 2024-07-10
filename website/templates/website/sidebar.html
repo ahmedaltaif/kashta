@@ -3,11 +3,11 @@
         {% for topic in topics %}
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#collapse{{ topic.id }}" role="button" aria-expanded="false" aria-controls="collapse{{ topic.id }}">
-                <i class="fas fa-angle-down mr-2"></i>{{ topic.name }}
+                <i class="fas fa-angle-down mr-2"></i>{{ topic.title }}
             </a>
             <div class="collapse" id="collapse{{ topic.id }}">
                 <ul class="nav flex-column ml-3">
-                    {% for article in topic.article_set.all %}
+                    {% for article in topic.articles.all %}
                     <li class="nav-item">
                         <a class="nav-link article-link" href="{% url 'article_detail' article.pk %}">{{ article.title }}</a>
                     </li>
