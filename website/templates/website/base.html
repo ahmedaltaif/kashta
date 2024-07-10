@@ -11,19 +11,17 @@
 </head>
 <body>
     {% include 'website/navbar.html' %}
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
                 {% include 'website/sidebar.html' %}
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9" id="content">
                 {% block content %}
                 {% endblock %}
             </div>
         </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -32,27 +30,19 @@
             $('.sidebar-toggle').on('click', function() {
                 $('#sidebar, #content').toggleClass('collapsed');
             });
-    
+
             $('.nav-link[data-toggle="collapse"]').on('click', function() {
                 $(this).toggleClass('collapsed');
             });
-    
-            $('.article-link').on('click', function(event) {
+
+            $(document).on('click', '.article-link', function(event) {
                 event.preventDefault();
                 const url = $(this).attr('href');
-                console.log('Article link clicked:', url);  // Add this line for debugging
-                $.ajax({
-                    url: url,
-                    success: function(data) {
-                        $('#content').html(data);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('AJAX Error:', status, error);
-                    }
+                $.get(url, function(data) {
+                    $('#content').html(data);
                 });
             });
         });
     </script>
-        
 </body>
 </html>

@@ -15,17 +15,21 @@ def home(request):
 def article_detail(request, pk):
     article = get_object_or_404(Article, pk=pk)
     topics = Topic.objects.all()
-    return render(request, 'articles/article_detail.html', {
+    template_name = 'articles/article_detail.html'
+    context = {
         'article': article,
         'topics': topics
-    })
+    }
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        template_name = 'articles/article_detail_partial.html'
+    return render(request, template_name, context)
 
 def article_list(request, pk):
     topic = get_object_or_404(Topic, pk=pk)
     topics = Topic.objects.all()
     return render(request, 'articles/article_list.html', {
         'topic': topic,
-        'articles': topic.articles.all(),  # Use 'articles' here
+        'articles': topic.articles.all(),
         'topics': topics
     })
 

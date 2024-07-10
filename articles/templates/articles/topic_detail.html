@@ -4,7 +4,7 @@
 <div class="container">
     <h1>{{ topic.title }}</h1>
     <p>{{ topic.description }}</p>
-    <div>{{ topic.content }}</div>
+    <div>{{ topic.content|safe }}</div>
     <h3>Articles in this topic</h3>
     <ul>
         {% for article in topic.articles.all %}

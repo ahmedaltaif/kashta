@@ -34,21 +34,22 @@ base.html
             $('.sidebar-toggle').on('click', function() {
                 $('#sidebar, #content').toggleClass('collapsed');
             });
-
+    
             $('.nav-link[data-toggle="collapse"]').on('click', function() {
                 $(this).toggleClass('collapsed');
             });
-
-            $('.article-link').on('click', function(event) {
+    
+            $(document).on('click', '.article-link', function(event) {
                 event.preventDefault();
                 const url = $(this).attr('href');
                 $.get(url, function(data) {
-                    $('#article-content').html('<h2>' + data.title + '</h2><p>' + data.content + '</p>');
+                    $('#content').html(data);
                 });
             });
         });
     </script>
-</body>
+    
+    </body>
 </html>
 
 """
@@ -121,11 +122,11 @@ sidebar.html
         {% for topic in topics %}
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#collapse{{ topic.id }}" role="button" aria-expanded="false" aria-controls="collapse{{ topic.id }}">
-                <i class="fas fa-angle-down mr-2"></i>{{ topic.name }}
+                <i class="fas fa-angle-down mr-2"></i>{{ topic.title }}
             </a>
             <div class="collapse" id="collapse{{ topic.id }}">
                 <ul class="nav flex-column ml-3">
-                    {% for article in topic.article_set.all %}
+                    {% for article in topic.articles.all %}
                     <li class="nav-item">
                         <a class="nav-link article-link" href="{% url 'article_detail' article.pk %}">{{ article.title }}</a>
                     </li>
@@ -148,7 +149,7 @@ articles/templates/articles/aticle_detail.html
     <div class="row">
         <div class="col-md-12">
             <h1>{{ article.title }}</h1>
-            <p>{{ article.content }}</p>
+            <p>{{ article.content | safe }}</p>
         </div>
     </div>
 </div>
@@ -174,7 +175,6 @@ articles/templates/articles/aticle_list.html
 </div>
 {% endblock %}
 
-
 """
 articles/templates/articles/topic_detail.html  
 """
@@ -195,5 +195,57 @@ articles/templates/articles/topic_detail.html
     </ul>
 </div>
 {% endblock %}
+
+"""
+
+views.py 
+"""
+from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
+from .models import Topic, Article
+
+def home(request):
+    latest_topics = Topic.objects.all()[:6]
+    most_viewed_articles = Article.objects.order_by('-view_count')[:6]
+    topics = Topic.objects.all()
+    return render(request, 'website/home.html', {
+        'latest_topics': latest_topics,
+        'most_viewed_articles': most_viewed_articles,
+        'topics': topics
+    })
+def article_detail(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    topics = Topic.objects.all()
+    template_name = 'articles/article_detail.html'
+    context = {
+        'article': article,
+        'topics': topics
+    }
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        template_name = 'articles/article_detail_partial.html'
+    return render(request, template_name, context)
+
+
+def article_list(request, pk):
+    topic = get_object_or_404(Topic, pk=pk)
+    topics = Topic.objects.all()
+    return render(request, 'articles/article_list.html', {
+        'topic': topic,
+        'articles': topic.articles.all(),  # Use 'articles' here
+        'topics': topics
+    })
+
+def search(request):
+    query = request.GET.get('q')
+    if query:
+        articles = Article.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
+    else:
+        articles = []
+    topics = Topic.objects.all()
+    return render(request, 'website/search_results.html', {
+        'results': articles,
+        'query': query,
+        'topics': topics
+    })
 
 """
