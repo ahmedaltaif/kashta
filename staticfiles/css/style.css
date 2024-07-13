@@ -112,21 +112,26 @@ body {
     margin: 20px auto;
     width: 100%; /* Adjust width as needed */
     max-width: 1200px; /* Ensure it doesn't get too wide */
-    height: 250px; /* Set your desired height */
+    height: 200px; /* Set your desired height */
     background-image: url("{% static 'img/goumbik.jpg' %}");
     background-size: cover;
     background-position: center;
     color: white; /* Text color */
     text-align: center; /* Center the text */
-    font-size: 24px; /* Adjust font size as needed */
+    font-size: 28px; /* Adjust font size as needed */
     font-weight: bold; /* Make text bold */
     border-radius: 10px; /* Optional: rounded corners */
     overflow: hidden; /* Ensure the content doesn't overflow */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 }
 
 .quote-background p {
     position: relative;
     z-index: 2; /* Ensure text is above background image */
+    max-width: 90%; /* Limit text width for better readability */
+    margin: 0 auto; /* Center text horizontally */
 }
 
 .quote-background::before {
@@ -138,4 +143,5 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Adjust background overlay color and opacity */
     z-index: 1; /* Ensure overlay is between background image and text */
+    border-radius: 10px; /* Optional: rounded corners */
 }
