@@ -3,8 +3,8 @@ from django.db.models import Q
 from .models import Topic, Article
 
 def home(request):
-    latest_topics = Topic.objects.all()[:6]
-    most_viewed_articles = Article.objects.order_by('-view_count')[:6]
+    latest_topics = Topic.objects.all()[:9]
+    most_viewed_articles = Article.objects.order_by('-view_count')[:9]
     topics = Topic.objects.all()
     return render(request, 'website/home.html', {
         'latest_topics': latest_topics,

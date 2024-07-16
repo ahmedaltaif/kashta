@@ -32,6 +32,18 @@ body {
     cursor: pointer;
 }
 
+/* Sidebar styling */
+.sidebar {
+    font-size: 20px; /* Adjust the font size as needed */
+}
+
+.sidebar .nav-link {
+    font-size: 20px; /* Adjust the font size of the links */
+    padding: 8px 15px; /* Adjust the padding if needed */
+}
+
+
+
 .nav-link .fa-angle-down {
     transition: transform 0.3s;
 }
@@ -95,10 +107,22 @@ body {
 }
 
 
+/* Container styles to push footer to the bottom */
+html, body {
+    height: 100%;
+}
+
+.container-fluid {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Footer styling */
 .footer {
     background-color: #f8f9fa;
     padding: 10px 0;
+    margin-top: auto;
 }
 
 .footer .social-icons a {
@@ -106,14 +130,15 @@ body {
     color: #007bff;
 }
 
+
 .quote-background {
     position: relative;
     padding: 20px;
     margin: 20px auto;
     width: 100%; /* Adjust width as needed */
     max-width: 1200px; /* Ensure it doesn't get too wide */
-    height: 200px; /* Set your desired height */
-    background-image: url("{% static 'img/goumbik.jpg' %}");
+    height: 250px; /* Set your desired height */
+    background-image: url("/static/img/sas.jpg"); /* Updated path */
     background-size: cover;
     background-position: center;
     color: white; /* Text color */
@@ -144,4 +169,28 @@ body {
     background-color: rgba(0, 0, 0, 0.5); /* Adjust background overlay color and opacity */
     z-index: 1; /* Ensure overlay is between background image and text */
     border-radius: 10px; /* Optional: rounded corners */
+}
+
+
+@media (max-width: 768px) {
+    .quote-background {
+        font-size: 20px;
+        height: auto;
+        padding: 10px;
+    }
+
+    .navbar-brand img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .form-inline {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .form-control {
+        width: 70%;
+    }
 }

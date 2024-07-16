@@ -1,5 +1,6 @@
 from django.shortcuts import render
+from articles.models import Topic, Article
 
 def landing_page(request):
-    context = {}  # Add any context data you need for the template
+    topics = Topic.objects.all()
     return render(request, 'landing/landingpage.html', context)

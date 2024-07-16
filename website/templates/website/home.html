@@ -3,12 +3,12 @@
 {% block content %}
 <div class="container">
     <div class="quote-background">
-    <p>Don’t watch the clock; do what it does. Keep going.</p>
-</div>
+        <p>Don’t watch the clock; do what it does. Keep going.</p>
+    </div>
 
     <h2>Newest in Tech</h2>
     <div class="row">
-        {% for topic in latest_topics %}
+        {% for topic in latest_topics|slice:":9" %}
         <div class="col-md-4">
             <div class="card mb-4">
                 <div class="card-body">
@@ -23,7 +23,7 @@
 
     <h2>Reader Favorites</h2>
     <div class="row">
-        {% for article in most_viewed_articles %}
+        {% for article in most_viewed_articles|slice:":9" %}
         <div class="col-md-4">
             <div class="card mb-4">
                 <div class="card-body">
