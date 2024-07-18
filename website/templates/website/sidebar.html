@@ -2,8 +2,12 @@
     <ul class="nav flex-column">
         {% for topic in topics %}
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#collapse{{ topic.id }}" role="button" aria-expanded="false" aria-controls="collapse{{ topic.id }}">
-                <i class="fas fa-angle-down mr-2"></i>{{ topic.title }}
+            <a class="nav-link d-flex align-items-center" data-toggle="collapse" href="#collapse{{ topic.id }}" role="button" aria-expanded="false" aria-controls="collapse{{ topic.id }}">
+                <i class="fas fa-angle-down mr-2"></i>
+                {% if topic.logo %}
+                <img src="{{ topic.logo.url }}" alt="{{ topic.title }}" class="img-thumbnail" style="width: 20px; height: 20px; margin-right: 10px;">
+                {% endif %}
+                {{ topic.title }}
             </a>
             <div class="collapse" id="collapse{{ topic.id }}">
                 <ul class="nav flex-column ml-3">

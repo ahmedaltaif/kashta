@@ -5,7 +5,7 @@ $(document).ready(function() {
       event.preventDefault(); // Prevent default link behavior
       const url = $(this).data('url');
       
-      // Hide boxes (replace with your specific box selectors)
+      // Hide boxes 
       $('#sidebar, #topics-box, #most-viewed-box').hide();
       
       // Show article content area
